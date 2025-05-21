@@ -1,0 +1,10 @@
+services:
+  gophish:
+    image: gophish/gophish:latest
+    container_name: gophish
+    restart: unless-stopped
+    ports:
+      - "3333:3333"   # Panel admin HTTPS
+      - "8085:80"     # Listener phishing HTTP
+    volumes:
+      - ./data/backup.db:/opt/gophish/gophish.db
