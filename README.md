@@ -13,3 +13,22 @@ ODOO_DB_NAME='DB8NAME'
 ODOO_PORT='INT'
 ODOO_HOST='HOST_DOMAINE'
 ```
+
+# Maintenance
+
+## Pour la generation de fichier de backup db 
+```text
+docker ps 
+docker cp gophish_ID:/opt/gophish/gophish.db ./backup_gophish.db
+```
+
+## Pour la restoratin 
+```text
+docker cp backup_gophish.db gophish:/opt/gophish/gophish.db
+```
+
+## Redemarage
+```text
+docker restart gophish
+```
+
